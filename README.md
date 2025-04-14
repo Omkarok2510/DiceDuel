@@ -1,6 +1,6 @@
 # 🎲 Dice Duel - A Java Battle Game
 
-![Java](https://img.shields.io/badge/Java-17%2B-blue)
+![Java](https://img.shields.io/badge/Java-24%2B-blue)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Omkarok2510/DiceDuel)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
