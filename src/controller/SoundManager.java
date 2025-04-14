@@ -1,26 +1,24 @@
 package src.controller;
 
-import javax.sound.sampled.*;
-import java.io.File;
-
 public class SoundManager {
-    public void playDiceSound() {
-        try {
-            // Use relative path from project root
-            File soundFile = new File("assets/dice.wav");
-            
-            if (!soundFile.exists()) {
-                System.err.println("Sound file not found at: " + soundFile.getAbsolutePath());
-                return;
-            }
+    // ... (existing code)
+    
+    public void playVictorySound() {
+        playSound("assets/victory.wav"); // Add victory sound file
+    }
 
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+    public void playDefeatSound() {
+        playSound("assets/defeat.wav"); // Add defeat sound file
+    }
+
+    private void playSound(String path) {
+        try {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File(path));
             Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start(); // Play async
-            
+            clip.open(audio);
+            clip.start();
         } catch (Exception e) {
-            System.err.println("Could not play sound: " + e.getMessage());
+            System.err.println("Could not play sound: " + path);
         }
     }
 }
