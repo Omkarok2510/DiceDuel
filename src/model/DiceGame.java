@@ -1,40 +1,36 @@
 package src.model;
 
-import src.controller.SoundManager;
-import src.ui.GameConsole;
-import java.util.Random;
-
 public class DiceGame {
-    private final GameConsole ui;
-    private final SoundManager sound;
-    private final Random random = new Random();
-
-    public DiceGame(GameConsole ui, SoundManager sound) {
-        this.ui = ui;
-        this.sound = sound;
-    }
-
+    // ... (existing code)
+    
     public void start() {
-        ui.showMessage("=== DICE DUEL ===");
+        ui.showArena();
+        ui.showDuelIntro();
         
         // Player 1 roll
-        ui.showMessage("\nPlayer 1's turn (Press Enter)");
-        ui.waitForInput();
-        int roll1 = rollDice();
+        ui.showMessage("\n" + CYAN + "YOUR TURN" + RESET);
+        int playerRoll = rollDice();
         
-        // Player 2 roll
-        ui.showMessage("\nPlayer 2's turn (Press Enter)");
-        ui.waitForInput();
-        int roll2 = rollDice();
+        // Player 2 (enemy) roll 
+        ui.showMessage("\n" + RED + "ENEMY'S TURN" + RESET);
+        int enemyRoll = rollDice();
 
-        // Determine winner
-        ui.showResult(roll1, roll2);
+        // Battle results
+        showBattleResult(playerRoll, enemyRoll);
     }
 
-    private int rollDice() {
-        sound.playDiceSound();  // Play sound effect
-        int value = random.nextInt(6) + 1;
-        ui.showMessage("Rolled: " + value);
-        return value;
+    private void showBattleResult(int p1, int p2) {
+        ui.showMessage("\n" + BOLD + "⚔️ BATTLE RESULTS ⚔️");
+        ui.showMessage("YOU: " + p1 + "   vs   ENEMY: " + p2);
+        
+        if (p1 > p2) {
+            ui.showVictory(true);
+            sound.playVictorySound(); // Add this to SoundManager
+        } else if (p2 > p1) {
+            ui.showVictory(false);
+            sound.playDefeatSound(); // Add this to SoundManager
+        } else {
+            ui.showMessage(YELLOW + "⚔️ DRAW! The tension rises..." + RESET);
+        }
     }
 }
