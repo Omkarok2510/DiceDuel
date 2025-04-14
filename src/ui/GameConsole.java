@@ -1,29 +1,26 @@
 package src.ui;
 
-import java.util.Scanner;
-
-public class GameConsole {
-    private final Scanner scanner = new Scanner(System.in);
-
-    public void showMessage(String message) {
-        System.out.println(message);
+public class GameConsole implements GameUI {
+    // ... (existing code)
+    
+    public void showArena() {
+        System.out.println(PURPLE + BOLD + "====================================");
+        System.out.println("        🏟️  DICE DUEL ARENA  🏟️       ");
+        System.out.println("====================================" + RESET);
+        System.out.println("YOU            vs            ENEMY");
+        System.out.println("⚔️                          ⚔️");
+        System.out.println();
     }
 
-    public void waitForInput() {
-        scanner.nextLine(); // Wait for Enter key
+    public void showDuelIntro() {
+        System.out.println(YELLOW + BOLD + "THE DICE WILL DECIDE YOUR FATE!" + RESET);
+        System.out.println("Type 'roll' when ready...");
     }
 
-    public void showResult(int player1, int player2) {
-        System.out.println("\n=== RESULTS ===");
-        System.out.println("Player 1: " + player1);
-        System.out.println("Player 2: " + player2);
-
-        if (player1 > player2) {
-            System.out.println("Player 1 wins!");
-        } else if (player2 > player1) {
-            System.out.println("Player 2 wins!");
-        } else {
-            System.out.println("It's a tie!");
-        }
+    public void showVictory(boolean isPlayer1Winner) {
+        String winner = isPlayer1Winner ? "YOU" : "ENEMY";
+        System.out.println(GREEN + BOLD + "╔═══════════════╗");
+        System.out.println("│  " + winner + " WIN" + (winner.equals("YOU") ? "! 🏆 " : "S! 💀") + "  │");
+        System.out.println("╚═══════════════╝" + RESET);
     }
 }
